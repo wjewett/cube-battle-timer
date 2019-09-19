@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+        <title>Battle Timer</title>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="numSelect">
+                <div><button class="button" id="btnSimulate">Simulate</button></div>
+                <br>
+                <span class="select-div"><label class="select-label" for="num-players">players:&nbsp;</label>
+                <select class="select" id="num-players">
+                    <option value="1">&nbsp;1</option>
+                    <option value="2">&nbsp;2</option>
+                    <option value="3">&nbsp;3</option>
+                    <option value="4">&nbsp;4</option>
+                    <option value="5">&nbsp;5</option>
+                </select></span>
+                <br>
+                <br>
+                <div><button class="button" id="btnNames">Edit Names</button></div><br>
+                <div><button class="button" id="btnPenalties">Penalties?</button></div>
+                <br>
+                
+
+                <div id="nameModal" class="modal">
+                    <div class="modal-content">
+                        <div id="name-modal-boxes">
+                            <!-- Modal content -->                            
+                        </div>
+                    <button class="button" id='name-modal-save'>Save Names</button>
+                    </div>
+                </div>
+
+                <div id="penaltyModal" class="modal">
+                    <div class="modal-content">
+                        <p><weak>2 seconds per penalty</weak></p>
+                        <div id="penalty-modal-boxes">
+                            <!-- Modal content --> 
+                        </div>
+                    <button class="button" id='penalty-modal-save'>Assess</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div id="timers">
+                    <h2 id="timer-head">Players</h2>
+                    <div id="timers-display">
+                        <!-- filled by javascript -->
+                    </div>
+                </div>
+                <div id="results">
+                    <h2 id="results-head">Results</h2>
+                    <div id="results-display">
+                        <!-- filled by javascript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
