@@ -9,8 +9,8 @@
     <body>
 
         <div class="container">
-            <div class="numSelect">
-                <div><button class="button" id="btnSimulate">Simulate</button></div>
+            <div class="sidebar">
+                <div><button class="button" id="btnStage">Stage</button></div>
                 <br>
                 <span class="select-div"><label class="select-label" for="num-players">players:&nbsp;</label>
                 <select class="select" id="num-players">
@@ -22,10 +22,8 @@
                 </select></span>
                 <br>
                 <br>
-                <div><button class="button" id="btnNames">Edit Names</button></div><br>
-                <div><button class="button" id="btnPenalties">Penalties?</button></div>
+                <div><button class="button" id="btnNames">Edit Names</button></div>
                 <br>
-                
 
                 <div id="nameModal" class="modal">
                     <div class="modal-content">
@@ -38,28 +36,28 @@
 
                 <div id="penaltyModal" class="modal">
                     <div class="modal-content">
-                        <p><weak>2 seconds per penalty</weak></p>
+                        <div class="div-penalty">2 seconds per penalty</div>
                         <div id="penalty-modal-boxes">
                             <!-- Modal content --> 
                         </div>
-                    <button class="button" id='penalty-modal-save'>Assess</button>
+                    <button class="button" id='penalty-modal-save'>Finalize Times</button>
                     </div>
                 </div>
             </div>
 
             <div class="grid">
+                <div id="banner">
+                    <p id="banner-text">
+                        <!-- Javascript injected banners -->
+                    </p>
+                </div>
                 <div id="timers">
                     <h2 id="timer-head">Players</h2>
                     <div id="timers-display">
                         <!-- filled by javascript -->
                     </div>
                 </div>
-                <div id="results">
-                    <h2 id="results-head">Results</h2>
-                    <div id="results-display">
-                        <!-- filled by javascript -->
-                    </div>
-                </div>
+
             </div>
         </div>
  
