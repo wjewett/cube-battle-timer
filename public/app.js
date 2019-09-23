@@ -3,6 +3,7 @@ const socket = io();
 let timerFunc;
 socket.on('begin', () => {
 	startTimer();
+	saveNames();
 });
 
 socket.on('player_finished', (player) => {
