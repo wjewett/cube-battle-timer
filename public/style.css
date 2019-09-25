@@ -72,8 +72,7 @@ body {
 	font-weight: 500;
 	white-space: nowrap;
 }
-#timers,
-#results {
+#timers {
 	border: white 2px solid;
 	border-radius: 30px;
 	padding: 1.25rem 0 0rem 0;
@@ -81,6 +80,12 @@ body {
 	position: relative;
 	height: auto;
 	width: 60%;
+}
+@media (max-width: 37.5em) {
+	#timers {
+		margin: 7rem 0 0 5%;
+		width: 90%;
+	}
 }
 #timer-head,
 #results-head {
@@ -93,6 +98,9 @@ body {
 	background-color: black;
 	padding: 0 .5rem;
 }
+#timer-display {
+	margin: 0 2rem;
+}
 .player-h2 {
 	border: dodgerblue 5px solid;
 	border-radius: 30px;
@@ -100,6 +108,11 @@ body {
 	position: relative;
 	margin: 2rem 10rem;
 	white-space: nowrap;
+}
+@media (max-width: 56.25em) {
+	.player-h2 {
+		margin: 2rem .5rem;
+	}
 }
 
 .player-results {
@@ -110,11 +123,7 @@ body {
 	margin: 2rem 2rem 0 0;
 	white-space: nowrap;
 }
-@media (max-width: 87.25em) {
-	.player-h2 {
-		margin: 2rem .5rem;
-	}
-}
+
 .time {
 	font-family: 'Digital7';
 	font-size: 6rem;
