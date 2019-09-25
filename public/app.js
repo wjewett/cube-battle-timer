@@ -82,7 +82,7 @@ document.getElementById('btnStage').addEventListener('click', () => {
 		drawTime(player);
 	});
 	setTimeout(() => {
-		socket.emit('simulate', { players, maxLength: 45 });
+		socket.emit('simulate', { players, maxLength: 5 });
 		banner[0].style.backgroundImage = bannerValues[2].color;
 		banner[1].innerHTML = bannerValues[2].text;
 	}, 2000);
