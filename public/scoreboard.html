@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="scoreboard.css">
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+        <title>Battle Timer</title>
+    </head>
+    <body>
+
+        <div class="container">
+           
+            <div class="grid">
+                <div id="banner">
+                    <p id="banner-text">
+                        <!-- Javascript injected banners -->
+                    </p>
+                </div>
+                <div id="timers">
+                    <h2 id="timer-head">Players</h2>
+                    <div id="timers-display">
+                        <!-- filled by javascript -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+ 
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="scoreboard.js"></script>
+    </body>
+</html>

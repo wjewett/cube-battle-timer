@@ -1,11 +1,9 @@
-// eslint-disable-next-line no-undef
 const socket = io();
 let timerFunc;
 socket.on('begin', () => {
 	startTimer();
 	banner[0].style.backgroundImage = bannerValues[2].color;
 	banner[1].innerHTML = bannerValues[2].text;
-	saveNames();
 });
 
 socket.on('player_finished', (player) => {
@@ -20,9 +18,24 @@ socket.on('stage', (recvPlayers) => {
 	if (!master) {
 		console.log('stage', recvPlayers);
 		players = recvPlayers;
-		penaltyModal.style.display = 'none';
-		createPlayers(players.length);
+		createTimers();
+		banner[0].style.backgroundImage = bannerValues[1].color;
+		banner[1].innerHTML = bannerValues[1].text;
+		playersRemaining = players.length;
 	}
+});
+
+socket.on('finalize', (recvPlayers) => {
+	sortedPlayers = [ ...recvPlayers ];
+	sortTimes(sortedPlayers);
+	resultsHTML = '';
+	sortedPlayers.forEach((player) => {
+		showResults(player, sortedPlayers.indexOf(player) + 1);
+		document.getElementById('timers-display').innerHTML = resultsHTML;
+	});
+	showRankings();
+	banner[0].style.backgroundImage = bannerValues[4].color;
+	banner[1].innerHTML = bannerValues[4].text + sortedPlayers[0].name + '!';
 });
 
 let timerHTML = '';
@@ -63,43 +76,7 @@ createPlayers(numPlayers);
 banner[0].style.backgroundImage = bannerValues[0].color;
 banner[1].innerHTML = bannerValues[0].text;
 
-document.getElementById('name-modal-save').addEventListener('click', () => {
-	saveNames();
-	nameModal.style.display = 'none';
-});
-document.getElementById('penalty-modal-save').addEventListener('click', () => {
-	assessPenalty();
-});
-
-document.getElementById('num-players').addEventListener('click', () => {
-	numPlayers = document.getElementById('num-players').value;
-	banner[0].style.backgroundImage = bannerValues[0].color;
-	banner[1].innerHTML = bannerValues[0].text;
-	newGame();
-});
-
-document.getElementById('btnStage').addEventListener('click', () => {
-	if (nameModal.style.display === 'block') {
-		saveNames();
-		nameModal.style.display = 'none';
-	}
-	master = true;
-	banner[0].style.backgroundImage = bannerValues[1].color;
-	banner[1].innerHTML = bannerValues[1].text;
-	document.getElementById('num-players').disabled = true;
-	penaltyModal.style.display = 'none';
-	newGame();
-	sortedPlayers = [];
-	players.forEach((player) => {
-		player.time = '0:00.00';
-		player.finished = false;
-		drawTime(player);
-	});
-	socket.emit('stage', players);
-});
-
 function newGame() {
-	penaltyModal.style.display = 'none';
 	createPlayers(numPlayers);
 }
 
@@ -123,8 +100,6 @@ function createPlayers(num) {
 
 function createTimers() {
 	timerHTML = '';
-	let modalInputs = '';
-	let modalPenalty = '';
 	timerArray = [];
 	players.forEach((player) => {
 		index = players.indexOf(player) + 1;
@@ -134,14 +109,8 @@ function createTimers() {
 		timerHTML += indivTimer;
 
 		timerArray.push(indivTimer);
-
-		modalInputs += `<div class="modal-players"><label class="modal-label" for="edit-${index}">Player ${index}:</label><br><input type="text" name="edit-${index}" class="modal-textbox" id="edit-${index}" value="${player.name}"></div><br>`;
-
-		modalPenalty += `<p class="modal-label"><span id="penalty-label-${index}">Player ${index}:&nbsp;</span><input type="number" min='0' max='5' class="penalty" id="penalty-${index}" value='0'></p>`;
 	});
 	timers.innerHTML = timerHTML;
-	document.getElementById('name-modal-boxes').innerHTML = modalInputs;
-	document.getElementById('penalty-modal-boxes').innerHTML = modalPenalty;
 }
 
 function saveNames() {
@@ -203,8 +172,6 @@ function gameOver(donePlayers) {
 		drawTime(player);
 	});
 	setTimeout(showRankings, 750);
-	document.getElementById('num-players').disabled = false;
-	penaltyModal.style.display = 'block';
 	banner[0].style.backgroundImage = bannerValues[3].color;
 	banner[1].innerHTML = bannerValues[3].text;
 }
@@ -246,7 +213,6 @@ function assessPenalty() {
 	showRankings();
 	banner[0].style.backgroundImage = bannerValues[4].color;
 	banner[1].innerHTML = bannerValues[4].text + sortedPlayers[0].name + '!';
-	socket.emit('finalize', sortedPlayers);
 }
 
 function sortTimes(players) {
@@ -288,12 +254,3 @@ function addPenalties(time, penalties) {
 
 	return newTime;
 }
-
-// Edit names Modal
-const nameModal = document.getElementById('nameModal');
-const penaltyModal = document.getElementById('penaltyModal');
-const btnNames = document.getElementById('btnNames');
-const span = document.getElementsByClassName('close')[0];
-btnNames.onclick = function showModal() {
-	nameModal.style.display = 'block';
-};
