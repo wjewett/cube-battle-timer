@@ -81,12 +81,6 @@ body {
 	height: auto;
 	width: 60%;
 }
-@media (max-width: 37.5em) {
-	#timers {
-		margin: 7rem 0 0 5%;
-		width: 90%;
-	}
-}
 #timer-head,
 #results-head {
 	left: 50%;
