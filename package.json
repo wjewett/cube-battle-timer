@@ -18,6 +18,6 @@
     "eslint": "^6.3.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "minimist": ">=1.2.3"
+    "minimist": ">=1.2.6"
   }
 }
